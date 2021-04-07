@@ -10,16 +10,24 @@ import cors from 'cors'
 
 import { RegisterResolver } from "./modules/user/Register";
 import { redis } from "./redis"
+import { LoginResolver } from "./modules/user/Login";
+import { MeResolver } from "./modules/user/Me";
 
 
 dotenv.config();
+
+declare module 'express-session' {
+  export interface SessionData {
+    user: { [key: string]: any };
+  }
+}
 
 
 const main = async () => {
   await createConnection()
 
     const schema = await buildSchema({
-        resolvers: [RegisterResolver],
+        resolvers: [RegisterResolver, LoginResolver, MeResolver],
       });
     const apolloServer = new ApolloServer({
       schema,
