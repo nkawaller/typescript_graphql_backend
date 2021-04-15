@@ -1,6 +1,6 @@
-import { redis } from '../redis';
+import { redis } from '../../redis';
 import {v4} from 'uuid';
-import { confirmationPrefix } from '../modules/constants/redisPrefixes'
+import { confirmationPrefix } from '../constants/redisPrefixes'
 
 export const createConfirmationUrl = async (userId: number) => {
     const token = v4();
