@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg} from "type-graphql";
 import { v4 } from "uuid";
 import { sendEmail } from "../utils/sendEmail";
 import { User } from "../../entity/User";
