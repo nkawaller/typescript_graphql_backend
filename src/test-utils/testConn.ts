@@ -8,9 +8,9 @@ export const testConn = (drop: boolean = false) => {
     port: 5432,
     username: "postgres",
     password: "postgres",
-    database: "typegraphql-example",
-    synchronize: true,
-    dropSchema: true,
-    entities: ["src/entity/*.*"],
+    database: "typegraphql-example-test",
+    synchronize: drop,
+    dropSchema: drop,
+    entities: [__dirname + "/../entity/*.*"],
   });
 };
