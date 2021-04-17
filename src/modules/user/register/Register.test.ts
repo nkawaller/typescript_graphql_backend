@@ -1,14 +1,14 @@
-import { Connection } from "typeorm"
-import { testConn } from "../../../test-utils/testConn"
+import { Connection } from "typeorm";
+import { testConn } from "../../../test-utils/testConn";
 import { gCall } from "../../../test-utils/gCall";
 
 let conn: Connection;
 beforeAll(async () => {
-    conn = await testConn()
-})
+  conn = await testConn();
+});
 afterAll(async () => {
-    await conn.close()
-})
+  await conn.close();
+});
 
 const registerMutation = `
 mutation Register($data: RegisterInput!) {
@@ -24,18 +24,20 @@ mutation Register($data: RegisterInput!) {
 }
 `;
 
-describe('Register', () => {
-    it('create user', async () => {
-      console.log(await gCall({
-          source: registerMutation,
-          variableValues: {
-              data: {
-                  firstName: 'bob',
-                  lastName: 'bob2',
-                  email: 'bob@bob.com',
-                  password: 'testpass'
-              }
+describe("Register", () => {
+  it("create user", async () => {
+    console.log(
+      await gCall({
+        source: registerMutation,
+        variableValues: {
+          data: {
+            firstName: "bob",
+            lastName: "bob2",
+            email: "bob@bob.com",
+            password: "testpass",
           }
-      }))
-    })
-})
+        }
+      })
+    );
+  });
+});
