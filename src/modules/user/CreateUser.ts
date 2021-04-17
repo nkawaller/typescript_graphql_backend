@@ -1,16 +1,23 @@
 import { User } from "../../entity/User";
-import { Resolver, Mutation, Arg, ClassType, InputType, Field } from "type-graphql";
+import {
+  Resolver,
+  Mutation,
+  Arg,
+  ClassType,
+  InputType,
+  Field,
+} from "type-graphql";
 import { RegisterInput } from "./register/RegisterInput";
 import { Product } from "../../entity/Product";
 
-function createBaseResolver<T extends ClassType, X extends ClassType>(
+function createResolver<T extends ClassType, X extends ClassType>(
   suffix: string,
   returnType: T,
   inputType: X,
   entity: any
 ) {
-  @Resolver({ isAbstract: true })
-  abstract class BaseResolver {
+  @Resolver()
+  class BaseResolver {
     @Mutation(() => returnType, { name: `create${suffix}` })
     async create(@Arg("data", () => inputType) data: any) {
       return entity.create(data).save();
@@ -22,20 +29,22 @@ function createBaseResolver<T extends ClassType, X extends ClassType>(
 
 @InputType()
 class ProductInput {
-    @Field()
-    name: string;
+  @Field()
+  name: string;
 }
 
-const BaseCreateUser = createBaseResolver("User", User, RegisterInput, User);
-const BaseCreateProduct = createBaseResolver("Product", Product, ProductInput, Product)
-
-@Resolver()
-export class CreateUserResolver extends BaseCreateUser {
-}
-
-@Resolver()
-export class CreateProductResolver extends BaseCreateProduct {
-}
+export const CreateUserResolver = createResolver(
+  "User",
+  User,
+  RegisterInput,
+  User
+);
+export const CreateProductResolver = createResolver(
+  "Product",
+  Product,
+  ProductInput,
+  Product
+);
 
 // Without using inheritance
 // @Resolver()
