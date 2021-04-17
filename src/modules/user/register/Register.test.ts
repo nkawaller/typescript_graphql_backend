@@ -4,7 +4,7 @@ import { gCall } from "../../../test-utils/gCall";
 
 let conn: Connection;
 beforeAll(async () => {
-    await testConn()
+    conn = await testConn()
 })
 afterAll(async () => {
     await conn.close()
